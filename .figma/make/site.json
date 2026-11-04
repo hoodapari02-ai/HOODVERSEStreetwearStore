@@ -1,0 +1,10 @@
+{
+  "description": "Shop premium Indian streetwear hoodies by style and collection, explore new drops, save favorites, and manage your cart in a responsive fashion storefront.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
