@@ -1,5 +1,8 @@
 import { FormEvent, useEffect, useMemo, useState } from "react"
 
+const API_URL = "http://localhost:5000";
+
+
 type Product = {
   id: number
   name: string
@@ -14,7 +17,7 @@ type Product = {
   trending?: boolean
 }
 
-type CartItem = Product & { size: string quantity: number }
+type CartItem = Product & { size: string; quantity: number }
 
 const photos = {
   orange:
@@ -353,10 +356,10 @@ function App() {
       )
       return existing
         ? current.map((item) =>
-            item.id === product.id && item.size === size
-              ? { ...item, quantity: item.quantity + 1 }
-              : item,
-          )
+          item.id === product.id && item.size === size
+            ? { ...item, quantity: item.quantity + 1 }
+            : item,
+        )
         : [...current, { ...product, size, quantity: 1 }]
     })
     flash(`${product.name} added to your bag`)
@@ -757,9 +760,8 @@ function App() {
                   setShowWishOnly(false)
                   setVisibleCount(8)
                 }}
-                className={`filter-chip ${
-                  activeCategory === id && !showWishOnly ? "active" : ""
-                }`}
+                className={`filter-chip ${activeCategory === id && !showWishOnly ? "active" : ""
+                  }`}
               >
                 {label}
               </button>
@@ -799,18 +801,15 @@ function App() {
                   )}
                   <button
                     onClick={() => toggleWishlist(product.id)}
-                    className={`absolute right-3 top-3 grid size-10 place-items-center rounded-full bg-[#f3f1e9] transition hover:bg-[#c6a15b] ${
-                      wishlist.includes(product.id) ? "text-red-600" : ""
-                    }`}
-                    aria-label={`${
-                      wishlist.includes(product.id) ? "Remove from" : "Add to"
-                    } wishlist`}
+                    className={`absolute right-3 top-3 grid size-10 place-items-center rounded-full bg-[#f3f1e9] transition hover:bg-[#c6a15b] ${wishlist.includes(product.id) ? "text-red-600" : ""
+                      }`}
+                    aria-label={`${wishlist.includes(product.id) ? "Remove from" : "Add to"
+                      } wishlist`}
                   >
                     <Icon
                       name="heart"
-                      className={`size-4 ${
-                        wishlist.includes(product.id) ? "fill-current" : ""
-                      }`}
+                      className={`size-4 ${wishlist.includes(product.id) ? "fill-current" : ""
+                        }`}
                     />
                   </button>
                   <button
@@ -1046,9 +1045,8 @@ function App() {
             ].map(([name, city, review], index) => (
               <article
                 key={name}
-                className={`border border-black/15 p-8 ${
-                  index === 1 ? "bg-[#111] text-white" : ""
-                }`}
+                className={`border border-black/15 p-8 ${index === 1 ? "bg-[#111] text-white" : ""
+                  }`}
               >
                 <div className="flex gap-1 text-[#b89555]">
                   {[1, 2, 3, 4, 5].map((s) => (
@@ -1328,11 +1326,10 @@ function App() {
                     <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
-                      className={`border py-3 text-xs font-black ${
-                        selectedSize === size
-                          ? "border-black bg-black text-white"
-                          : "border-black/20"
-                      }`}
+                      className={`border py-3 text-xs font-black ${selectedSize === size
+                        ? "border-black bg-black text-white"
+                        : "border-black/20"
+                        }`}
                     >
                       {size}
                     </button>
