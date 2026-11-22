@@ -405,7 +405,42 @@ function App() {
     event.currentTarget.reset()
     flash(message)
   }
+  const handleContactSubmit = async (
+    event: FormEvent<HTMLFormElement>,
+  ) => {
+    event.preventDefault()
 
+    const formData = new FormData(event.currentTarget)
+    const name = String(formData.get("name") || "")
+    const email = String(formData.get("email") || "")
+    const message = String(formData.get("message") || "")
+    const topic = String(formData.get("topic") || "")
+
+    try {
+      const response = await fetch(`${API_URL}/api/contact`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message: `Topic: ${topic}\n${message}`,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || "Message failed to send.")
+      }
+
+      event.currentTarget.reset()
+      flash(data.message || "Thank you for contacting HOODVERSE!")
+    } catch {
+      flash("Could not send message. Please try again.")
+    }
+  }
   return (
     <div className="min-h-screen bg-[#f3f1e9] text-[#111]">
       {notice && (
@@ -1134,9 +1169,7 @@ function App() {
               </div>
             </div>
             <form
-              onSubmit={(e) =>
-                handleSimpleForm(e, "Message sent. We’ll get back to you soon.")
-              }
+              onSubmit={handleContactSubmit}
               className="grid gap-6 sm:grid-cols-2"
             >
               <label className="form-field">
