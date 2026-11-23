@@ -409,8 +409,10 @@ function App() {
     event: FormEvent<HTMLFormElement>,
   ) => {
     event.preventDefault()
+    const form = event.currentTarget
+    const formData = new FormData(form)
 
-    const formData = new FormData(event.currentTarget)
+
     const name = String(formData.get("name") || "")
     const email = String(formData.get("email") || "")
     const message = String(formData.get("message") || "")
@@ -435,7 +437,7 @@ function App() {
         throw new Error(data.message || "Message failed to send.")
       }
 
-      event.currentTarget.reset()
+      form.reset()
       flash(data.message || "Thank you for contacting HOODVERSE!")
     } catch {
       flash("Could not send message. Please try again.")
@@ -1163,21 +1165,27 @@ function App() {
                 >
                   +91 98765 43210
                 </a>
+
                 <p className="pt-3 text-xs font-normal text-white/40">
                   Mon—Sat / 10:00—19:00 IST
                 </p>
               </div>
             </div>
+
             <form
               onSubmit={handleContactSubmit}
-              className="grid gap-6 sm:grid-cols-2"
+              className="grid gap-5 sm:grid-cols-2"
             >
               <label className="form-field">
-                Name
-                <input required name="name" placeholder="Your name" />
+                Your name
+                <input
+                  required
+                  name="name"
+                  placeholder="Your name"
+                />
               </label>
               <label className="form-field">
-                Email
+                Your email
                 <input
                   required
                   type="email"
@@ -1207,6 +1215,7 @@ function App() {
                 Send message <Icon name="arrow" />
               </button>
             </form>
+
           </div>
         </section>
       </main>
